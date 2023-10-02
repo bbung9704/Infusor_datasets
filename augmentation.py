@@ -19,7 +19,9 @@ seq = iaa.Sequential([
 for file in img_files:
     if 'aug' not in file:
         image = cv2.imread("origin/img/"+file)
+        cv2.imwrite("v1/origin/img/"+file, image)
         segmap = cv2.imread("label/img/"+file.split('.')[0]+'.png')
+        cv2.imwrite("v1/label/img/"+file.split('.')[0]+'.png', segmap)
         segmap = SegmentationMapsOnImage(segmap, shape=image.shape)
 
         # Augment images and segmaps.
@@ -27,14 +29,14 @@ for file in img_files:
             images_aug, segmaps_aug = seq(image=image, segmentation_maps=segmap)
             
             images_aug = np.array(images_aug, np.uint8)
-            # cv2.imwrite(f'origin/img/aug_{i+1}_'+file, images_aug)
+            cv2.imwrite(f'v1/origin/img/aug_{i+1}_'+file, images_aug)
             segmaps_aug = segmaps_aug.get_arr()
             segmaps_aug = np.array(segmaps_aug, np.uint8) * 255
-            # cv2.imwrite(f'label/img/aug_{i+1}_'+file.split('.')[0]+'.png', segmaps_aug)
+            cv2.imwrite(f'v1/label/img/aug_{i+1}_'+file.split('.')[0]+'.png', segmaps_aug)
 
-            cat = cv2.hconcat([images_aug, segmaps_aug])
-            cv2.imshow('', cat)
-            cv2.waitKey()
+            # cat = cv2.hconcat([images_aug, segmaps_aug])
+            # cv2.imshow('', cat)
+            # cv2.waitKey()
 
         print(f"[Done] {file} aug done!")
     
