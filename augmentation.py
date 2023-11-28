@@ -29,10 +29,10 @@ for file in img_files:
             images_aug, segmaps_aug = seq(image=image, segmentation_maps=segmap)
             
             images_aug = np.array(images_aug, np.uint8)
-            cv2.imwrite(f'v1/origin/img/aug_{i+1}_'+file, images_aug)
+            cv2.imwrite(f'v2/origin/img/aug_{i+1}_'+file, images_aug)
             segmaps_aug = segmaps_aug.get_arr()
             segmaps_aug = np.array(segmaps_aug, np.uint8)
-            cv2.imwrite(f'v1/label/img/aug_{i+1}_'+file.split('.')[0]+'.png', segmaps_aug)
+            cv2.imwrite(f'v2/label/img/aug_{i+1}_'+file.split('.')[0]+'.png', segmaps_aug)
 
             # cat = cv2.hconcat([images_aug, segmaps_aug])
             # cv2.imshow('', cat)
